@@ -7,12 +7,22 @@
 //     .then(data => console.log(data.results));   //Logs the "results" of that data. This is the data we can work with. A random user.
 
 
-
-
+// Just for testing. Logging the array of people from the API
 fetch('https://randomuser.me/api/?results=12')
     .then(response => response.json())
     .then(body => console.log(body))
-    // .then(data => generateUserCard(data.name))
+
+// Using the fetch method to call the random user API and get 12 results or users back. Using forEach() to itterate over each person and put their info into the generateUserCard() function
+fetch('https://randomuser.me/api/?results=12')
+    .then(response => response.json())
+    // .then(body => console.log(body))
+    .then(body => body.results)
+    .then(results => {
+        results.forEach(result => {
+            generateUserCard(result.name.first + ' ' + result.name.last, result.picture.medium, result.email, result.location.city, + ', ' + result.location.state);
+        });
+    })
+    
 
 
 
