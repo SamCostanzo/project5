@@ -20,10 +20,29 @@ fetch('https://randomuser.me/api/?results=12')
     .then(results => {
         results.forEach(result => {
             generateUserCard(result.name.first + ' ' + result.name.last, result.picture.medium, result.email, result.location.city, + ', ' + result.location.state);
+            // I think we would add the click event listener here for the modal window?
+            
         });
     })
     
 
+    // WIP event listener 
+    const gallery = document.getElementById('gallery');
+    const card = gallery.getElementsByClassName('card');
+    for(let i = 0; i < card.length; i++){
+            card[i].addEventListener('click', () => {
+            generateModalWindow(result.name.first + ' ' + result.name.last, result.email, result.location.city, result.cell, result.location.street + ', ' + result.location.state + result.location.postcode, result.dob.date);  // Pass in info for modal window
+            console.log('Test');
+        });
+    }
+
+    
+    
+    
+    // card.addEventListener('click', () => {
+    //     // generateModalWindow(result.name.first + ' ' + result.name.last, result.email, result.location.city, result.cell, result.location.street + ', ' + result.location.state + result.location.postcode, result.dob.date);  // Pass in info for modal window
+    //     alert('You got it');
+    // });
 
 
 
@@ -93,7 +112,83 @@ function generateUserCard(name, picture, email, city, state){
     $('.gallery').append(cardDiv);
 }
 
-// createUserCard('Sam Costanzo', 'https://randomuser.me/api/portraits/women/11.jpg', 'samcostanzo25@gmail.com', 'Syracuse', 'New York');
+// Modal window function
+function generateModalWindow(name, email, city, phoneNumber, adress, dob){
+    // Creating main container div
+    const modalContainer = document.createElement('div');
+    setAttributes(modalContainer, {'class':'modal-container'});
+    
+    // Creating modal div
+    const modalDiv = document.createElement('div');
+    setAttributes(modalDiv, {'class':'modal'});
+
+    // Creating the X or exit button for the window
+    const Xbutton = document.createElement('button');
+    setAttributes(Xbutton, {'type':'button', 'id':'modal-close-btn', 'class':'modal-close-btn'});
+    // Add strong on the button?
+    Xbutton.textContent = 'X';
+
+    // Creating div for modal-info-container
+    const modalInfoContainer = document.createElement('div');
+    setAttributes(modalInfoContainer, {'class':'modal-info-container'});
+
+    // Creating the img or profile picture
+    const img = document.createElement('img');
+    setAttributes(img, {'class':'modal-img', 'src':'https://placehold.it/125x125', 'alt':'profile picture'});   // Pass in profile picture to src
+
+    // Create h3 for the name
+    const h3 = document.createElement('h3');
+    setAttributes(h3, {'id':'name', '':'modal-name cap'});
+    h3.textContent = '';   // Pass in name
+
+    // Create p for email
+    const p_email = document.createElement('p');
+    setAttributes(p_email, {'class':'modal-text'});
+    p_email.textContent = '';   // Pass in email       
+    
+    // Create p for city
+    const p_city = document.createElement('p');
+    setAttributes(p_city, {'class':'modal-text cap'});
+    p_city.textContent = '';   // Pass in city     
+
+    // Create <hr>? Not sure if this will work
+
+    const hr = document.createElement('hr');
+
+
+    // Create p for phone number
+    const p_phoneNumber = document.createElement('p');
+    setAttributes(p_phoneNumber, {'class':'modal-text'});
+    p_phoneNumber.textContent = '';   // Pass in phone number   
+
+
+    // Create p for fill adress
+    const p_adress = document.createElement('p');
+    setAttributes(p_adress, {'class':'modal-text'});
+    p_adress.textContent = '';   // Pass in adress   
+
+
+    // Create p for DoB
+    const p_dob = document.createElement('p');
+    setAttributes(p_dob, {'class':'modal-text'});
+    p_dob.textContent = '';   // Pass in dob   
+
+    // Append all the display elements to the first div modalInfoContainer
+    $(modalInfoContainer).append(img);
+    $(modalInfoContainer).append(h3);
+    $(modalInfoContainer).append(p_email);
+    $(modalInfoContainer).append(p_city);
+    $(modalInfoContainer).append(hr);
+    $(modalInfoContainer).append(p_phoneNumber);
+    $(modalInfoContainer).append(p_adress);
+    $(modalInfoContainer).append(p_dob);
+    // Appending the info container div and the exit button to the modal div
+    $(modalDiv).append(modalInfoContainer);
+    $(modalDiv).append(Xbutton);
+    // Finally, append all of that to the main container div for the modal window. Keep in mind the next and prev buttons need to be appended to this as well
+    $(modalContainer).append(modalDiv);
+}
+
 
 
 
