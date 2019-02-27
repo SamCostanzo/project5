@@ -1,20 +1,32 @@
 /*********************************************AWESOME STARTUP EMPLOYEE DIRECTORY******************************************/
-
 const gallery = document.getElementById('gallery');
 const card = gallery.getElementsByClassName('card');
 
 
 // Using the fetch method to call the random user API and get 12 results or users back. Using forEach() to itterate over each person and put their info into the generateUserCard() function
+
+// Helper function to make fetching data simpler. Gets data and converts to json
+function fetchData(url){
+    return fetch(url)
+        .then(response => response.json())
+}
+
+
+
+
 fetch('https://randomuser.me/api/?results=12')
     .then(response => response.json())
     .then(body => body.results)
     .then(results => {
         console.log(results);
-        let users = results;
+        let globalUsersArray = [];
+        globalUsersArray.push(results);
+        // console.log(globalUsersArray);
         results.forEach(result => {
             generateUserCard(result.name.first + ' ' + result.name.last, result.picture.medium, result.email, result.location.city, result.location.state);
+            // generateUserCard(result.name.first, result.name.last, result.picture.medium, result.email, result.location.city, result.location.state);
         })
-        
+
         // Click event listner for modal window function call
         const gallery = document.getElementById('gallery');
         const card = gallery.getElementsByClassName('card');
@@ -30,7 +42,7 @@ fetch('https://randomuser.me/api/?results=12')
         }
     })
 
-
+    
 /**********************************************************************FUNCTIONS********************************************************************/
 
 // Helper function to make setting all the attributes below way more concice
@@ -58,9 +70,8 @@ function createSearchBar(){
 }
 createSearchBar();
 
-
-
 // Generating a users info card. Can pass in their info as arguments. Uses the above helper function to set the attributes
+// Going to try to redo this function with a template litteral. Commenting out for now
 function generateUserCard(name, picture, email, city, state){
     // Create a 'card' to display a users info
     const cardDiv = document.createElement('div');
@@ -95,6 +106,23 @@ function generateUserCard(name, picture, email, city, state){
     $(cardDiv).append(cardInfoContainer);
     $('.gallery').append(cardDiv);
 }
+
+
+// function generateUserCard(name, picture, email, city, state){
+//     const html = `
+//         <div class="card">
+//         <div class="card-img-container">
+//             <img class="card-img" src="${picture}" alt="profile picture">
+//         </div>
+//         <div class="card-info-container">
+//             <h3 id="name" class="card-name cap">${name}</h3>
+//             <p class="card-text">${email}</p>
+//             <p class="card-text cap">${city}, ${state}</p>
+//         </div>
+//     </div>
+//     `;
+//     gallery.innerHTML = html;
+// }
 
 // Modal window function
 function generateModalWindow(name, picture, email, city, phoneNumber, adress, dob){
@@ -163,19 +191,16 @@ function generateModalWindow(name, picture, email, city, phoneNumber, adress, do
     // Click event listeners on the prev and next buttons
     previous.addEventListener('click', () => {
         console.log('prev');
-        // let prevResult = users - 1;  
-        // generateModalWindow(prevResult.name.first + ' ' + this.result.name.last, this.result.picture.medium, this.result.email, this.result.location.city, this.result.cell, this.result.location.street + ', ' + this.result.location.state + ' ' + this.result.location.postcode, 'Birthday: ' + dob_month + '/' + dob_day + '/' + dob_year); 
+        let prevResult = this.results - [1];  
+        generateModalWindow(prevResult.name.first + ' ' + this.result.name.last, this.result.picture.medium, this.result.email, this.result.location.city, this.result.cell, this.result.location.street + ', ' + this.result.location.state + ' ' + this.result.location.postcode, 'Birthday: ' + dob_month + '/' + dob_day + '/' + dob_year); 
     });
 
     next.addEventListener('click', () => {
         console.log('next');
-        // let prevResult = users - 1;  
+        // let prevResult = users - [1];  
         // generateModalWindow(prevResult.name.first + ' ' + this.result.name.last, this.result.picture.medium, this.result.email, this.result.location.city, this.result.cell, this.result.location.street + ', ' + this.result.location.state + ' ' + this.result.location.postcode, 'Birthday: ' + dob_month + '/' + dob_day + '/' + dob_year); 
     });
 
-
-    
-    
     // Append all the display elements to the first div modalInfoContainer
     $(modalInfoContainer).append(img);
     $(modalInfoContainer).append(h3);
