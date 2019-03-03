@@ -173,33 +173,22 @@ function generateModalWindow(name, picture, email, city, phoneNumber, adress, do
     // For exceeds grade. Adding the next and prev buttons for the window
     // Create the div 
     const modalButtonContainer = document.createElement('div');
-    setAttributes(modalButtonContainer, {'class':'modal-btn-container'});
-    // Create the two buttons
-    // Previous
-    const previous = document.createElement('button');
-    setAttributes(previous, {'type':'button', 'id':'modal-prev', 'class':'modal-prev btn'});
-    previous.textContent = 'Prev';
-    // Next
-    const next = document.createElement('button');
-    setAttributes(next, {'type':'button', 'id':'modal-next', 'class':'modal-next btn'});
-    next.textContent = 'Next';
+    // setAttributes(modalButtonContainer, {'class':'modal-btn-container'});
+    // // Create the two buttons
+    // // Previous
+    // const previous = document.createElement('button');
+    // setAttributes(previous, {'type':'button', 'id':'modal-prev', 'class':'modal-prev btn'});
+    // previous.textContent = 'Prev';
+    // // Next
+    // const next = document.createElement('button');
+    // setAttributes(next, {'type':'button', 'id':'modal-next', 'class':'modal-next btn'});
+    // next.textContent = 'Next';
     // Append to modal window
-    $(modalButtonContainer).append(previous);
-    $(modalButtonContainer).append(next);
+    // $(modalButtonContainer).append(previous);
+    // $(modalButtonContainer).append(next);
     $(modalContainer).append(modalButtonContainer);
 
-    // Click event listeners on the prev and next buttons
-    previous.addEventListener('click', () => {
-        console.log('prev');
-        let prevResult = this.results - [1];  
-        generateModalWindow(prevResult.name.first + ' ' + this.result.name.last, this.result.picture.medium, this.result.email, this.result.location.city, this.result.cell, this.result.location.street + ', ' + this.result.location.state + ' ' + this.result.location.postcode, 'Birthday: ' + dob_month + '/' + dob_day + '/' + dob_year); 
-    });
-
-    next.addEventListener('click', () => {
-        console.log('next');
-        // let prevResult = users - [1];  
-        // generateModalWindow(prevResult.name.first + ' ' + this.result.name.last, this.result.picture.medium, this.result.email, this.result.location.city, this.result.cell, this.result.location.street + ', ' + this.result.location.state + ' ' + this.result.location.postcode, 'Birthday: ' + dob_month + '/' + dob_day + '/' + dob_year); 
-    });
+    
 
     // Append all the display elements to the first div modalInfoContainer
     $(modalInfoContainer).append(img);
